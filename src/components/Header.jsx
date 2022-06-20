@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Profile from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
 export default function Header() {
   // const { location: { pathname }, push } = history;
+  const [hideShowBar, setHideShowBar] = useState(true);
 
   return (
     <div>
