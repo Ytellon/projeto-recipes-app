@@ -31,6 +31,11 @@ export default function Header(history) {
           alt="Profile"
         />
       </button>
+      <input
+        placeholder="Barra de busca"
+        data-testid="search-input"
+        hidden={ hideShowBar }
+      />
     </div>
   );
 }
