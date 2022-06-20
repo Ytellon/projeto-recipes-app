@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Profile from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
-export default function Header() {
-  // const { location: { pathname }, push } = history;
+export default function Header(history) {
+  const { push } = history;
   const [hideShowBar, setHideShowBar] = useState(true);
 
   return (
@@ -12,6 +12,7 @@ export default function Header() {
       <button
         type="button"
         data-testid="profile-top-btn"
+        onClick={ () => push('/profile') }
       >
         <img
           src={ Profile }
