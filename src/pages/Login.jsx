@@ -9,11 +9,8 @@ export default function Login() {
     const habilitarBotao = () => {
       const caracter = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
       const minimoCarac = 7;
-      if (!(caracter.test(email)) || password.length < minimoCarac) {
-        setIsButtonDisabled(true);
-      } else {
-        setIsButtonDisabled(false);
-      }
+      const validation = !(caracter.test(email)) || password.length < minimoCarac;
+      setIsButtonDisabled(validation);
     };
     habilitarBotao();
   }, [email, password]);
