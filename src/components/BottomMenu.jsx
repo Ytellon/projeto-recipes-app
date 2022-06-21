@@ -28,7 +28,7 @@ export default function BottomMenu() {
       </button>
       <button
         type="button"
-        onClick={ () => history.push('/meals') }
+        onClick={ () => history.push('/foods') }
       >
         <img src={ mealIcon } alt="Ícone de comida" data-testid="food-bottom-btn" />
       </button>
