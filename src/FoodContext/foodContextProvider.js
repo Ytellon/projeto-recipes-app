@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FoodContext } from './foodContext';
 import PropTypes from 'prop-types';
+import { FoodContext } from './foodContext';
 
 const FoodContextProvider = ({ children }) => {
   const contextValue = {};
@@ -9,6 +9,10 @@ const FoodContextProvider = ({ children }) => {
       { children }
     </FoodContext.Provider>
   );
-}
+};
+
+FoodContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default FoodContextProvider;

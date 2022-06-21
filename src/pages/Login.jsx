@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// import { Link } from 'react-router-dom';
 
 export default function Login(props) {
   const [email, setEmail] = useState('');
@@ -28,9 +29,10 @@ export default function Login(props) {
     <div>
       <input
         type="email"
-        placeholder="Email"
+        placeholder="email"
         data-testid="email-input"
         value={ email }
+        name="email"
         onChange={ ({ target: { value } }) => setEmail(value) }
       />
       <input
@@ -38,8 +40,10 @@ export default function Login(props) {
         placeholder="password"
         data-testid="password-input"
         value={ password }
+        name="password"
         onChange={ ({ target: { value } }) => setPassword(value) }
       />
+      {/* <Link to="/foods"> */}
       <button
         type="button"
         data-testid="login-submit-btn"
@@ -48,6 +52,7 @@ export default function Login(props) {
       >
         Enter
       </button>
+      {/* </Link> */}
     </div>
   );
 }
