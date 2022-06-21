@@ -8,6 +8,7 @@ export const getCocktailsByName = async (drinkName) => {
     console.log(error);
   }
 };
+
 export const getDrinksByFirstLetter = async (firstLetter) => {
   const URL = `www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
   try {
