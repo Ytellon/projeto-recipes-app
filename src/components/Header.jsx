@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Profile from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import BottomMenu from './BottomMenu';
 
 export default function Header(props) {
   const history = useHistory();
@@ -39,6 +40,8 @@ export default function Header(props) {
         data-testid="search-input"
         hidden={ hideShowBar }
       />
+
+      <BottomMenu />
     </div>
   );
 }
