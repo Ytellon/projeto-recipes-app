@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Profile from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
-export default function Header(history) {
-  const { push } = history;
+export default function Header(props) {
+  const history = useHistory();
+  const { title } = props;
   const [hideShowBar, setHideShowBar] = useState(true);
-
   return (
     <div>
       <button
         type="button"
         data-testid="profile-top-btn"
-        onClick={ () => push('/profile') }
+        onClick={ () => history.push('/profile') }
       >
         <img
           src={ Profile }
           alt="Profile"
         />
       </button>
-      <p data-testid="page-title">Page title</p>
+      <p data-testid="page-title">
+        { title }
+      </p>
 
       <button
         data-testid="search-top-btn"
