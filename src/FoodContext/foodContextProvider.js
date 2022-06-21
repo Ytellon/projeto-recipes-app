@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { FoodContext } from './foodContext';
+import React from 'react';
 import PropTypes from 'prop-types';
+import FoodContext from './foodContext';
 
 const FoodContextProvider = ({ children }) => {
   const contextValue = {};
@@ -9,6 +9,10 @@ const FoodContextProvider = ({ children }) => {
       { children }
     </FoodContext.Provider>
   );
-}
+};
 
 export default FoodContextProvider;
+
+FoodContextProvider.propTypes = {
+  children: PropTypes.shape({}),
+}.isRequired;
