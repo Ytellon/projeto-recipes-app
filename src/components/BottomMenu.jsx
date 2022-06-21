@@ -12,24 +12,25 @@ export default function BottomMenu() {
     <footer data-testid="footer">
       <button
         type="button"
-        data-testid="drinks-bottom-btn"
         onClick={ () => history.push('/drinks') }
       >
-        <img src={ drinkIcon } alt="Ícone de bebida" />
+        <img src={ drinkIcon } alt="Ícone de bebida" data-testid="drinks-bottom-btn" />
       </button>
       <button
         type="button"
-        data-testid="explore-bottom-btn"
         onClick={ () => history.push('/explore') }
       >
-        <img src={ exploreIcon } alt="Ícone de exploração" />
+        <img
+          src={ exploreIcon }
+          alt="Ícone de exploração"
+          data-testid="explore-bottom-btn"
+        />
       </button>
       <button
         type="button"
-        data-testid="food-bottom-btn"
-        onClick={ () => history.push('/foods') }
+        onClick={ () => history.push('/meals') }
       >
-        <img src={ mealIcon } alt="Ícone de comida" />
+        <img src={ mealIcon } alt="Ícone de comida" data-testid="food-bottom-btn" />
       </button>
     </footer>
   );
