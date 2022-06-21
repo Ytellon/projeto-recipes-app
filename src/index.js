@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import FoodContextProvider from './FoodContext/foodContextProvider';
 
 ReactDOM.render(
-  <App />,
+  <FoodContextProvider>
+    <App />
+  </FoodContextProvider>,
   document.getElementById('root'),
 );
 
