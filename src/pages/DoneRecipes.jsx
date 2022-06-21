@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
 
-export default function Meals() {
+export default function DoneRecipes() {
   return (
     <div>
       <Header
-        title="Foods"
-        showSearchIcon
+        title="Done Recipes"
+        showSearchIcon={ false }
       />
     </div>
   );
