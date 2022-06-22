@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import BottomMenu from '../components/BottomMenu';
 import CardsRecipes from '../components/CardsRecipes';
 import Header from '../components/Header';
 import FoodContext from '../FoodContext/foodContext';
@@ -22,6 +23,7 @@ export default function Food() {
           dataTestIdName={ `${index}-card-name` }
         />
       ))}
+      <BottomMenu />
     </div>
   );
 }
