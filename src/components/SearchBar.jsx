@@ -35,17 +35,25 @@ function SearchBar() {
     }
   };
 
+  const verifyFound = (found) => {
+    if (!found) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+  };
+
   const handleSetMeal = async (event) => {
     event.preventDefault();
     switch (typeInput) {
     case 'ingredient':
       if (history.location.pathname === '/foods') {
         const mealByIngredient = await getMealByIngredient(searchInput);
+        verifyFound(mealByIngredient);
         verifyFood(mealByIngredient);
         return setMeal(mealByIngredient);
       }
       if (history.location.pathname === '/drinks') {
         const ingredientDrink = await getDrinkByIngredient(searchInput);
+        verifyFound(ingredientDrink);
         verifyDrink(ingredientDrink);
         return setDrink(ingredientDrink);
       }
@@ -53,11 +61,13 @@ function SearchBar() {
     case 'name':
       if (history.location.pathname === '/foods') {
         const mealByName = await getMealByName(searchInput);
+        verifyFound(mealByName);
         verifyFood(mealByName);
         return setMeal(mealByName);
       }
       if (history.location.pathname === '/drinks') {
         const nameDrink = await getDrinksByName(searchInput);
+        verifyFound(nameDrink);
         verifyDrink(nameDrink);
         return setDrink(nameDrink);
       }
@@ -68,11 +78,13 @@ function SearchBar() {
       }
       if (history.location.pathname === '/foods') {
         const mealByFirstLetter = await getMealByFirstLetter(searchInput);
+        verifyFound(mealByFirstLetter);
         verifyFood(mealByFirstLetter);
         return setMeal(mealByFirstLetter);
       }
       if (history.location.pathname === '/drinks') {
         const firstLetterDrink = await getDrinksByFirstLetter(searchInput);
+        verifyFound(firstLetterDrink);
         verifyDrink(firstLetterDrink);
         return setDrink(firstLetterDrink);
       }

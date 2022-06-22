@@ -12,7 +12,7 @@ export default function Food() {
         title="Foods"
         showSearchIcon
       />
-      { meal.slice(0, NUMBER_OF_CARDS).map((food, index) => (
+      { meal && meal.slice(0, NUMBER_OF_CARDS).map((food, index) => (
         <CardsRecipes
           key={ food.idMeal }
           name={ food.strMeal }
