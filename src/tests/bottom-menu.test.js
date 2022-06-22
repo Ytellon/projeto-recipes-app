@@ -32,6 +32,7 @@ describe('Verifica componente Bottom Menu', () => {
     //     <App />
     //   </Router>,
     // );
+
     const { history } = renderWithRouter(<App />);
     history.push('/foods');
 
