@@ -85,6 +85,7 @@ function SearchBar() {
   return (
     <form className="search-bar">
       <input
+        data-testid="search-input"
         type="text"
         placeholder="Search Recipe"
         value={ searchInput }
@@ -121,7 +122,6 @@ function SearchBar() {
       >
         Search
       </button>
-      <p>{console.log(history)}</p>
     </form>
   );
 }
