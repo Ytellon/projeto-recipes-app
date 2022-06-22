@@ -1,4 +1,4 @@
-export const getCocktailsByName = async (drinkName) => {
+export const getDrinksByName = async (drinkName) => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinkName}`;
   try {
     const response = await fetch(URL);
@@ -10,7 +10,7 @@ export const getCocktailsByName = async (drinkName) => {
 };
 
 export const getDrinksByFirstLetter = async (firstLetter) => {
-  const URL = `www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
   try {
     const response = await fetch(URL);
     const data = await response.json();
@@ -20,12 +20,12 @@ export const getDrinksByFirstLetter = async (firstLetter) => {
   }
 };
 
-export const getIngredientsByName = async (ingredientName) => {
-  const URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${ingredientName}`;
+export const getDrinkByIngredient = async (ingredientName) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredientName}`;
   try {
     const response = await fetch(URL);
     const data = await response.json();
-    return data.ingredients;
+    return data.drinks;
   } catch (error) {
     console.log(error);
   }

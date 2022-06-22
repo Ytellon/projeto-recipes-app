@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-import '../css/BottomMenu.css';
+import '../styles/BottomMenu.css';
 
 export default function BottomMenu() {
   const history = useHistory();
