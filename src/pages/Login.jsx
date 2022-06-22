@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function Login() {
@@ -42,14 +42,16 @@ export default function Login() {
         name="password"
         onChange={ ({ target: { value } }) => setPassword(value) }
       />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ isButtonDisabled }
-        onClick={ RedirectToRecipes }
-      >
-        Enter
-      </button>
+      <Link to="/foods">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ isButtonDisabled }
+          onClick={ RedirectToRecipes }
+        >
+          Enter
+        </button>
+      </Link>
     </div>
   );
 }
