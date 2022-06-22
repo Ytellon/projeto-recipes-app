@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Profile from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 export default function Header(props) {
   const history = useHistory();
@@ -35,11 +36,8 @@ export default function Header(props) {
             src={ SearchIcon }
             alt="Profile"
           />
-          { showBar && <input
-            placeholder="Barra de busca"
-            data-testid="search-input"
-          />}
         </button>)}
+      {showBar && <SearchBar />}
     </div>
   );
 }

@@ -4,20 +4,20 @@ import CardsRecipes from '../components/CardsRecipes';
 import Header from '../components/Header';
 import FoodContext from '../FoodContext/foodContext';
 
-export default function Drinks() {
-  const { drink } = useContext(FoodContext);
+export default function Food() {
+  const { meal } = useContext(FoodContext);
   const NUMBER_OF_CARDS = 12;
   return (
     <div>
       <Header
-        title="Drinks"
+        title="Foods"
         showSearchIcon
       />
-      { drink && drink.slice(0, NUMBER_OF_CARDS).map((drinks, index) => (
+      { meal && meal.slice(0, NUMBER_OF_CARDS).map((food, index) => (
         <CardsRecipes
-          key={ drinks.idDrink }
-          name={ drinks.strDrink }
-          image={ drinks.strDrinkThumb }
+          key={ food.idMeal }
+          name={ food.strMeal }
+          image={ food.strMealThumb }
           dataTestIdCard={ `${index}-recipe-card` }
           dataTestIdImage={ `${index}-card-img` }
           dataTestIdName={ `${index}-card-name` }
