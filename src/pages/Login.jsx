@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -43,7 +42,6 @@ export default function Login() {
         name="password"
         onChange={ ({ target: { value } }) => setPassword(value) }
       />
-      {/* <Link to="/foods"> */}
       <button
         type="button"
         data-testid="login-submit-btn"
@@ -52,7 +50,6 @@ export default function Login() {
       >
         Enter
       </button>
-      {/* </Link> */}
     </div>
   );
 }
