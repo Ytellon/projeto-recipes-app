@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import FoodProgress from './pages/FoodProgress';
 
 function App() {
   return (
@@ -15,12 +16,13 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route path="/foods/" component={ Food } />
+          <Route exact path="/foods/" component={ Food } />
           <Route path="/drinks/" component={ Drinks } />
           <Route path="/profile" component={ Profile } />
           <Route path="/explore" component={ Explore } />
           <Route path="/done-recipes" component={ DoneRecipes } />
           <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+          <Route exact path="/foods/in-progress" component={ FoodProgress } />
         </Switch>
       </Router>
     </FoodContextProvider>
