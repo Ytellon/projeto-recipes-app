@@ -23,6 +23,7 @@ function App() {
           <Route path="/done-recipes" component={ DoneRecipes } />
           <Route path="/favorite-recipes" component={ FavoriteRecipes } />
           <Route exact path="/foods/in-progress" component={ FoodProgress } />
+          {/* <Route exact path="/foods/:id/in-progress" component={ FoodProgress } /> rota oficial */}
         </Switch>
       </Router>
     </FoodContextProvider>

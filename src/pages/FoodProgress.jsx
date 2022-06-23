@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import '../styles/FoodProgress.css';
 
 export default function FoodProgress() {
   const [ingredientChecked, setIngredientChecked] = useState(false);
+  const history = useHistory();
 
-  const finishProgressRecipes = () => {
+  const saveProgressRecipes = () => {
+    setIngredientChecked(!ingredientChecked);
+
     const recipes = {
       cocktails: {
         id: [],
@@ -14,26 +18,29 @@ export default function FoodProgress() {
       },
     };
 
-    const finishedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (finishedRecipes === null) {
-      console.log('esta vazio');
+    const saveIngredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (saveIngredients === null) {
       localStorage.setItem('inProgressRecipes', JSON.stringify([recipes]));
-    } else {
-      console.log('tem conteudo');
-      finishedRecipes.push(recipes);
-
-      localStorage.setItem('inProgressRecipes', JSON.stringify(finishedRecipes));
+    } else if (ingredientChecked === true) {
+      // ingrediente marcado, salvar no localStorage
+      saveIngredients.push(recipes);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(saveIngredients));
     }
   };
 
+  const ingredientsCheckedLocalStorage = JSON
+    .parse(localStorage.getItem('inProgressRecipes'));
+
   return (
-    <div>
+    <form>
       {/* <img data-testid="recipe-photo" /> */}
       <h1 data-testid="recipe-title">Title</h1>
       <button type="button" data-testid="share-btn">Compartilhar</button>
       <button type="button" data-testid="favorite-btn">Favoritar</button>
       <p data-testid="recipe-category">Categoria</p>
       <ul data-testid="ingredient-step">
+
+        {/* recipes.map(({name, 'cenoura'}) => ) */}
         <li>
           <label
             className={ ingredientChecked === true && 'ingredientChecked' }
@@ -42,23 +49,24 @@ export default function FoodProgress() {
             nome do ingrediente
             <input
               type="checkbox"
-              required
               id="checkbox"
-              checked={ ingredientChecked }
-              onClick={ () => setIngredientChecked(!ingredientChecked) }
+              checked={ ingredientsCheckedLocalStorage
+                .includes('cenoura') ? true : ingredientChecked }
+              onClick={ () => saveProgressRecipes() }
+              required
             />
           </label>
         </li>
       </ul>
       <p data-testid="instructions">Preparo</p>
       <button
-        type="button"
+        type="submit"
         data-testid="finish-recipe-btn"
-        onClick={ () => finishProgressRecipes() }
+        onClick={ () => history.push('/done-recipes') }
+        disabled={ lengthLocalStorage === lengthIngreditsAPI }
       >
         Finalizar
-
       </button>
-    </div>
+    </form>
   );
 }
