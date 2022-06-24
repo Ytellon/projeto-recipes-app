@@ -46,7 +46,6 @@ const FoodContextProvider = ({ children }) => {
   const getDrinksByCategory = async (category) => {
     const drinks = await getDrinkByCategory(category);
     setDrink(drinks);
-    console.log(drinks);
   };
 
   useEffect(() => {
@@ -67,6 +66,8 @@ const FoodContextProvider = ({ children }) => {
     setButtonMeal,
     getMealsByCategory,
     getDrinksByCategory,
+    fetchMeals,
+    fetchDrinks,
   };
 
   return (
