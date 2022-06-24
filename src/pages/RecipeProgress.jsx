@@ -6,7 +6,7 @@ export default function FoodProgress() {
   const [ingredientChecked, setIngredientChecked] = useState(false);
   const history = useHistory();
 
-  const saveProgressRecipes = () => {
+  const saveIngredients = () => {
     setIngredientChecked(!ingredientChecked);
 
     const recipes = {
@@ -18,18 +18,67 @@ export default function FoodProgress() {
       },
     };
 
-    const saveIngredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (saveIngredients === null) {
+    const ingredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (ingredients === null) {
       localStorage.setItem('inProgressRecipes', JSON.stringify([recipes]));
     } else if (ingredientChecked === true) {
       // ingrediente marcado, salvar no localStorage
-      saveIngredients.push(recipes);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(saveIngredients));
+      ingredients.push(recipes);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(ingredients));
     }
   };
 
   const ingredientsCheckedLocalStorage = JSON
     .parse(localStorage.getItem('inProgressRecipes'));
+
+  const doneRecipe = (event) => {
+    event.preventDefault();
+
+    // salvar id e data
+    const date = new Date();
+    const dateFormated = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+
+    const vaiReceber = 'vai receber';
+    const drinkOrMeal = 'drink';
+
+    let recipeToSave = {};
+
+    if (drinkOrMeal === 'drink') {
+      recipeToSave = {
+        id: vaiReceber,
+        type: vaiReceber,
+        nationality: '',
+        category: '',
+        alcoholicOrNot: vaiReceber,
+        name: vaiReceber,
+        image: vaiReceber,
+        doneDate: dateFormated,
+        tags: vaiReceber,
+      };
+    } else if (drinkOrMeal === 'meal') {
+      recipeToSave = {
+        id: vaiReceber,
+        type: vaiReceber,
+        nationality: vaiReceber,
+        category: vaiReceber,
+        alcoholicOrNot: '',
+        name: vaiReceber,
+        image: vaiReceber,
+        doneDate: dateFormated,
+        tags: vaiReceber,
+      };
+    }
+
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([recipeToSave]));
+    } else {
+      doneRecipes.push(recipeToSave);
+      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    }
+
+    history.push('/done-recipes');
+  };
 
   return (
     <form>
@@ -52,7 +101,7 @@ export default function FoodProgress() {
               id="checkbox"
               checked={ ingredientsCheckedLocalStorage
                 .includes('cenoura') ? true : ingredientChecked }
-              onClick={ () => saveProgressRecipes() }
+              onClick={ () => saveIngredients() }
               required
             />
           </label>
@@ -62,8 +111,8 @@ export default function FoodProgress() {
       <button
         type="submit"
         data-testid="finish-recipe-btn"
-        onClick={ () => history.push('/done-recipes') }
-        disabled={ lengthLocalStorage === lengthIngreditsAPI }
+        onClick={ (event) => doneRecipe(event) }
+        // disabled={ lengthLocalStorage === lengthIngreditsAPI }
       >
         Finalizar
       </button>
