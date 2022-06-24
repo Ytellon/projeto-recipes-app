@@ -52,3 +52,14 @@ export const getAllDrinksCategories = async () => {
     console.log(error);
   }
 };
+
+export const getDrinkByCategory = async (category) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};

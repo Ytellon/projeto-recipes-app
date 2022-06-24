@@ -6,7 +6,7 @@ import FoodContext from '../FoodContext/foodContext';
 import Button from '../components/Button';
 
 export default function Food() {
-  const { meal, buttonMeal } = useContext(FoodContext);
+  const { meal, buttonMeal, getMealsByCategory } = useContext(FoodContext);
   const NUMBER_OF_CARDS = 12;
   const NUMBER_CATEGORIES = 5;
   return (
@@ -23,6 +23,7 @@ export default function Food() {
               key={ index }
               dataTestIdButton={ `${categories.strCategory}-category-filter` }
               name={ categories.strCategory }
+              onClick={ ({ target }) => getMealsByCategory(target.name) }
             />
           ))}
       { meal && meal.slice(0, NUMBER_OF_CARDS).map((food, index) => (

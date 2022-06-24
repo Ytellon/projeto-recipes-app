@@ -4,8 +4,13 @@ import FoodContext from './foodContext';
 import {
   getAllDrinksInitial,
   getAllDrinksCategories,
+  getDrinkByCategory,
 } from '../service/drinkAPI';
-import { getAllMealsInitial, getAllFoodsCategories } from '../service/mealAPI';
+import {
+  getAllMealsInitial,
+  getAllFoodsCategories,
+  getMealByCategory,
+} from '../service/mealAPI';
 
 const FoodContextProvider = ({ children }) => {
   const [meal, setMeal] = useState([]);
@@ -33,6 +38,17 @@ const FoodContextProvider = ({ children }) => {
     setMeal(meals);
   };
 
+  const getMealsByCategory = async (category) => {
+    const meals = await getMealByCategory(category);
+    setMeal(meals);
+  };
+
+  const getDrinksByCategory = async (category) => {
+    const drinks = await getDrinkByCategory(category);
+    setDrink(drinks);
+    console.log(drinks);
+  };
+
   useEffect(() => {
     fetchDrinks();
     fetchMeals();
@@ -49,6 +65,8 @@ const FoodContextProvider = ({ children }) => {
     buttonMeal,
     setButtonDrink,
     setButtonMeal,
+    getMealsByCategory,
+    getDrinksByCategory,
   };
 
   return (

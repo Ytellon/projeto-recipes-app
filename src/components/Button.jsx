@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Button({ dataTestIdButton, name }) {
+function Button({ dataTestIdButton, name, onClick }) {
   return (
     <button
-      className="btn btn-outline-primary"
       data-testid={ dataTestIdButton }
       name={ name }
       type="button"
+      onClick={ onClick }
     >
       {name}
     </button>
@@ -17,6 +17,7 @@ function Button({ dataTestIdButton, name }) {
 Button.propTypes = {
   dataTestIdButton: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Button;
