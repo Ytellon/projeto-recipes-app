@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import ShareIcon from '../images/shareIcon.svg';
 
 export default function DoneRecipes() {
+  const history = useHistory();
+
   const [doneRecipes] = useState(JSON
     .parse(localStorage.getItem('doneRecipes')));
 
@@ -54,32 +57,50 @@ export default function DoneRecipes() {
       </button>
 
       { filteredRecipes
-        .map(({ nationality, alcoholicOrNot, category, name, doneDate }, index) => (
-          <div key={ index }>
-            <img src="" alt="" data-testid="index-horizontal-image" />
-            <p
-              data-testid="${index-horizontal-top-text"
-            >
-              { nationality === '' ? alcoholicOrNot : `${nationality} - ${category}` }
+        .map((recipe, index) => {
+          const { id, nationality, alcoholicOrNot,
+            category, name, doneDate, image } = recipe;
 
-            </p>
-            <p data-testid="${index-horizontal-name">{ name }</p>
-            <p data-testid="${index-horizontal-done-date">{ doneDate }</p>
-            <p
-              data-testid="${index-${tagName-horizontal-tag"
-            >
-              { nationality !== '' ? 'renderiza tags' : 'não renderiza' }
+          return (
+            <div key={ index }>
+              <button
+                type="button"
+                onClick={ () => history.push(`/foods/${id}/details`) }
+              >
+                <img src={ image } alt="Receita" data-testid="index-horizontal-image" />
+              </button>
+              <p
+                data-testid="${index-horizontal-top-text"
+              >
+                { nationality === '' ? alcoholicOrNot : `${nationality} - ${category}` }
+              </p>
+              <button
+                type="button"
+                onClick={ () => history.push(`/foods/${id}/details`) }
+              >
+                <p
+                  data-testid="${index-horizontal-name"
+                >
+                  { name }
+                </p>
+              </button>
+              <p data-testid="${index-horizontal-done-date">{ doneDate }</p>
+              <p
+                data-testid="${index-${tagName-horizontal-tag"
+              >
+                { nationality !== '' ? 'renderiza tags' : 'não renderiza' }
 
-            </p>
+              </p>
 
-            <button
-              type="button"
-              data-testid="${index-horizontal-share-btn"
-            >
-              <img src={ ShareIcon } alt="Ícone de compartilhar" />
-            </button>
-          </div>
-        )) }
+              <button
+                type="button"
+                data-testid="${index-horizontal-share-btn"
+              >
+                <img src={ ShareIcon } alt="Ícone de compartilhar" />
+              </button>
+            </div>
+          );
+        }) }
 
     </div>
   );
