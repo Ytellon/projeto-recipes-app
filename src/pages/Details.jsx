@@ -12,16 +12,34 @@ export default function Details() {
   const path = useRef('');
   const [recipe, setRecipe] = useState({});
   const [suggestions, setSuggestions] = useState([{}]);
+  const [isRecipeStarted, setIsRecipeStarted] = useState(false);
   const [ingredientsAndMeasures, setIngredientsAndMeasures] = useState({
     ingredients: [],
     measures: [],
   });
 
+  path.current = location.split('/');
+  const [, isFoodOrDrink, id] = path.current;
+
+  const doneRecipesAtLocalStorage = localStorage.getItem('doneRecipes');
+  const doneRecipes = JSON.parse(doneRecipesAtLocalStorage);
+
+  useEffect(() => {
+    const anyDoneRecipe = () => {
+      const checkLocalStorageKey = () => {
+        setIsRecipeStarted(doneRecipes
+          .some((doneRecipe) => Number(doneRecipe.id) === Number(id)));
+      };
+      if (doneRecipes) {
+        checkLocalStorageKey();
+      }
+    };
+    anyDoneRecipe();
+  });
+
   useEffect(() => {
     const controller = new AbortController();
     const getId = async () => {
-      path.current = location.split('/');
-      const [, isFoodOrDrink, id] = path.current;
       if (isFoodOrDrink === 'foods') {
         const result = await getMealById(id);
         const suggestionsResult = await getSuggestedDrinks();
@@ -37,7 +55,7 @@ export default function Details() {
     getId();
 
     return () => controller?.abort();
-  }, [location]);
+  }, [location, id, isFoodOrDrink]);
 
   useEffect(() => {
     const array = Object.entries(recipe);
@@ -56,6 +74,10 @@ export default function Details() {
       measures: onlyMeasures,
     });
   }, [recipe]);
+
+  const startRecipe = () => {
+    setIsRecipeStarted((prev) => !prev);
+  };
 
   return (
     <section>
@@ -151,16 +173,19 @@ export default function Details() {
         />
       </div>
 
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        style={ {
-          position: 'fixed',
-          bottom: '0',
-        } }
-      >
-        Start Recipe
-      </button>
+      {!isRecipeStarted && (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          onClick={ startRecipe }
+          style={ {
+            position: 'fixed',
+            bottom: '0',
+          } }
+        >
+          Start Recipe
+        </button>
+      )}
     </section>
   );
 }
