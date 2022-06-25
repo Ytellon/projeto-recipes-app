@@ -5,7 +5,18 @@ import FoodContext from './foodContext';
 const FoodContextProvider = ({ children }) => {
   const [meal, setMeal] = useState([]);
   const [drink, setDrink] = useState([]);
-  const contextValue = { meal, setMeal, drink, setDrink };
+  const [currentRecipeId, setCurrentRecipeId] = useState('');
+  const [drinkOrMeal, setDrinkOrMeal] = useState('');
+  const contextValue = {
+    meal,
+    setMeal,
+    drink,
+    setDrink,
+    currentRecipeId,
+    setCurrentRecipeId,
+    drinkOrMeal,
+    setDrinkOrMeal,
+  };
   return (
     <FoodContext.Provider value={ contextValue }>
       { children }

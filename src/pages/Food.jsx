@@ -17,6 +17,7 @@ export default function Food() {
         <CardsRecipes
           key={ food.idMeal }
           name={ food.strMeal }
+          id={ food.idMeal }
           image={ food.strMealThumb }
           dataTestIdCard={ `${index}-recipe-card` }
           dataTestIdImage={ `${index}-card-img` }

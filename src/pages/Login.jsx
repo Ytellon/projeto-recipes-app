@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState();
-  const history = useHistory();
   useEffect(() => {
     const habilitarBotao = () => {
       const caracter = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -21,7 +20,6 @@ export default function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email }));
-    history.push('/foods');
   };
 
   return (

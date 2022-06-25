@@ -1,0 +1,29 @@
+.carousel {
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.inner {
+  transition: transform 0.3s;
+  white-space: nowrap;
+}
+
+.carousel-item {
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: black;
+  display: inline-flex;
+  height: 200px;
+  justify-content: center;
+  position: relative;
+}
+
+.carousel-item h5 {
+  background-color: white;
+  bottom: -5px;
+  position: absolute;
+  text-align: center;
+  width: 95%;
+}

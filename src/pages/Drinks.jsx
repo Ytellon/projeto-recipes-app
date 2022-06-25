@@ -16,6 +16,7 @@ export default function Drinks() {
       { drink && drink.slice(0, NUMBER_OF_CARDS).map((drinks, index) => (
         <CardsRecipes
           key={ drinks.idDrink }
+          id={ drinks.idDrink }
           name={ drinks.strDrink }
           image={ drinks.strDrinkThumb }
           dataTestIdCard={ `${index}-recipe-card` }
