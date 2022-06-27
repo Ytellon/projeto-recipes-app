@@ -50,4 +50,5 @@ CardsRecipes.propTypes = {
   id: PropTypes.string,
 }.isRequired;
 
+
 export default CardsRecipes;

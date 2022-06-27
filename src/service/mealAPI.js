@@ -33,6 +33,10 @@ export const getMealByIngredient = async (ingredient) => {
 
 export const getMealById = async (mealId) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
+}
+
+export const getAllMealsInitial = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   try {
     const response = await fetch(URL);
     const data = await response.json();
@@ -44,6 +48,32 @@ export const getMealById = async (mealId) => {
 
 export const getSuggestedMeals = async () => {
   const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+}
+
+export const getAllFoodsCategories = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getMealByCategory = async (category) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getMealRandom = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
   try {
     const response = await fetch(URL);
     const data = await response.json();

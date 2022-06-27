@@ -33,7 +33,7 @@ function SearchBar() {
   const verifyFood = (savedMeal) => {
     setDrinkOrMeal('foods');
     if (savedMeal && savedMeal.length === 1) {
-      history.push(`/meals/${savedMeal[0].idMeal}`);
+      history.push(`/foods/${savedMeal[0].idMeal}`);
     }
   };
 
