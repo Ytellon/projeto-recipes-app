@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { getMealById, getSuggestedMeals } from '../service/mealAPI';
 import { getDrinkById, getSuggestedDrinks } from '../service/drinkAPI';
 import Carousel from '../components/Carousel';
+import StartOrContinueBtns from '../components/StartOrContinueBtns';
+import ShareOrFavoriteBtns from '../components/ShareOrFavoriteBtns';
 
 const SIX = 6;
 
@@ -12,7 +14,6 @@ export default function Details() {
   const path = useRef('');
   const [recipe, setRecipe] = useState({});
   const [suggestions, setSuggestions] = useState([{}]);
-  const [isRecipeStarted, setIsRecipeStarted] = useState(false);
   const [ingredientsAndMeasures, setIngredientsAndMeasures] = useState({
     ingredients: [],
     measures: [],
@@ -20,22 +21,6 @@ export default function Details() {
 
   path.current = location.split('/');
   const [, isFoodOrDrink, id] = path.current;
-
-  const doneRecipesAtLocalStorage = localStorage.getItem('doneRecipes');
-  const doneRecipes = JSON.parse(doneRecipesAtLocalStorage);
-
-  useEffect(() => {
-    const anyDoneRecipe = () => {
-      const checkLocalStorageKey = () => {
-        setIsRecipeStarted(doneRecipes
-          .some((doneRecipe) => Number(doneRecipe.id) === Number(id)));
-      };
-      if (doneRecipes) {
-        checkLocalStorageKey();
-      }
-    };
-    anyDoneRecipe();
-  });
 
   useEffect(() => {
     const controller = new AbortController();
@@ -75,10 +60,6 @@ export default function Details() {
     });
   }, [recipe]);
 
-  const startRecipe = () => {
-    setIsRecipeStarted((prev) => !prev);
-  };
-
   return (
     <section>
       <img
@@ -93,19 +74,10 @@ export default function Details() {
         { recipe.strMeal || recipe.strDrink }
       </h2>
 
-      <button
-        data-testid="share-btn"
-        type="button"
-      >
-        Compartilhar
-      </button>
-
-      <button
-        data-testid="favorite-btn"
-        type="button"
-      >
-        Favoritar
-      </button>
+      <ShareOrFavoriteBtns
+        id={ id }
+        recipe={ recipe }
+      />
 
       <div
         style={ { display: 'flex' } }
@@ -172,20 +144,10 @@ export default function Details() {
           suggestions={ suggestions }
         />
       </div>
-
-      {!isRecipeStarted && (
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          onClick={ startRecipe }
-          style={ {
-            position: 'fixed',
-            bottom: '0',
-          } }
-        >
-          Start Recipe
-        </button>
-      )}
+      <StartOrContinueBtns
+        id={ id }
+        isFoodOrDrink={ isFoodOrDrink }
+      />
     </section>
   );
 }

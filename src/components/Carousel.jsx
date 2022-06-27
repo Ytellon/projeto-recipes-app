@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Carousel.css';
 
-const THREE_THOUSAND = 3000;
+const TWO_THOUSAND = 2000;
 
 export default function Carousel({ suggestions }) {
   const [pairPhotosIndex, setPairPhotosIndex] = useState(0);
@@ -16,7 +16,7 @@ export default function Carousel({ suggestions }) {
   };
 
   useEffect(() => {
-    const timer = setInterval(() => nextSuggestion(), THREE_THOUSAND);
+    const timer = setInterval(() => nextSuggestion(), TWO_THOUSAND);
     return () => clearInterval(timer);
   });
 

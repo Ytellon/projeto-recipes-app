@@ -7,6 +7,9 @@ const FoodContextProvider = ({ children }) => {
   const [drink, setDrink] = useState([]);
   const [currentRecipeId, setCurrentRecipeId] = useState('');
   const [drinkOrMeal, setDrinkOrMeal] = useState('');
+  const shareRecipe = () => {
+    navigator.clipboard.writeText(window.location.href);
+  };
   const contextValue = {
     meal,
     setMeal,
@@ -16,6 +19,7 @@ const FoodContextProvider = ({ children }) => {
     setCurrentRecipeId,
     drinkOrMeal,
     setDrinkOrMeal,
+    shareRecipe,
   };
   return (
     <FoodContext.Provider value={ contextValue }>
