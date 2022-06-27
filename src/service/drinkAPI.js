@@ -63,3 +63,14 @@ export const getDrinkByCategory = async (category) => {
     console.log(error);
   }
 };
+
+export const getDrinksRandom = async () => {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
