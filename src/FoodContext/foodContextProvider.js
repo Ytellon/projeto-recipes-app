@@ -15,6 +15,12 @@ import {
 const FoodContextProvider = ({ children }) => {
   const [meal, setMeal] = useState([]);
   const [drink, setDrink] = useState([]);
+  const [currentRecipeId, setCurrentRecipeId] = useState('');
+  const [drinkOrMeal, setDrinkOrMeal] = useState('');
+  const shareRecipe = () => {
+    navigator.clipboard.writeText(window.location.href);
+  };
+
   const [buttonDrink, setButtonDrink] = useState([]);
   const [buttonMeal, setButtonMeal] = useState([]);
 
@@ -60,6 +66,11 @@ const FoodContextProvider = ({ children }) => {
     setMeal,
     drink,
     setDrink,
+    currentRecipeId,
+    setCurrentRecipeId,
+    drinkOrMeal,
+    setDrinkOrMeal,
+    shareRecipe,
     buttonDrink,
     buttonMeal,
     setButtonDrink,

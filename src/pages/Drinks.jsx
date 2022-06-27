@@ -44,6 +44,18 @@ export default function Drinks() {
         name="All"
         onClick={ fetchDrinks }
       />
+      { drink && drink.slice(0, NUMBER_OF_CARDS).map((drinks, index) => (
+        <CardsRecipes
+          key={ drinks.idDrink }
+          id={ drinks.idDrink }
+          name={ drinks.strDrink }
+          image={ drinks.strDrinkThumb }
+          dataTestIdCard={ `${index}-recipe-card` }
+          dataTestIdImage={ `${index}-card-img` }
+          dataTestIdName={ `${index}-card-name` }
+        />
+      ))}
+
       {buttonDrink
         && buttonDrink
           .slice(0, NUMBER_CATEGORIES)

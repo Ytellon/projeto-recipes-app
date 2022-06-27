@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import App from '../App';
 
@@ -75,9 +75,9 @@ describe('Verifica tela de login', () => {
 
   test('Testa chaves salvas no localStorage', () => {
     render(
-      <MemoryRouter>
+      <Router history={ history }>
         <App />
-      </MemoryRouter>,
+      </Router>,
     );
 
     const inputEmail = screen.getByPlaceholderText('email');
@@ -99,7 +99,6 @@ describe('Verifica tela de login', () => {
     const user = localStorage.getItem('user');
     expect(JSON.parse(user)).toEqual({ email });
 
-    history.push('/foods');
     expect(history.location.pathname).toEqual('/foods');
   });
 });

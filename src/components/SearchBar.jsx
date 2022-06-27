@@ -16,7 +16,7 @@ import {
 function SearchBar() {
   const [typeInput, setTypeInput] = useState('');
   const [searchInput, setSearchInput] = useState('');
-  const { setMeal, setDrink } = useContext(FoodContext);
+  const { setMeal, setDrink, setDrinkOrMeal } = useContext(FoodContext);
   const history = useHistory();
 
   const handleClick = ({ target }) => {
@@ -24,12 +24,14 @@ function SearchBar() {
   };
 
   const verifyDrink = (savedDrink) => {
+    setDrinkOrMeal('drinks');
     if (savedDrink && savedDrink.length === 1) {
       history.push(`/drinks/${savedDrink[0].idDrink}`);
     }
   };
 
   const verifyFood = (savedMeal) => {
+    setDrinkOrMeal('foods');
     if (savedMeal && savedMeal.length === 1) {
       history.push(`/foods/${savedMeal[0].idMeal}`);
     }
