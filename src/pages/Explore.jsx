@@ -1,8 +1,10 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Button from '../components/Button';
 
 export default function Explore() {
+  const history = useHistory();
   return (
     <div>
       <Header
@@ -10,14 +12,14 @@ export default function Explore() {
         showSearchIcon={ false }
       />
       <Button
-        dataTestIdButton="explore-button-1"
-        name="Explore 1"
-        onClick={ () => console.log('Explore 1') }
+        dataTestIdButton="explore-foods"
+        name="Explore Foods"
+        onClick={ () => history.push('/explore/foods') }
       />
       <Button
-        dataTestIdButton="explore-button-2"
-        name="Explore 2"
-        onClick={ () => console.log('Explore 2') }
+        dataTestIdButton="explore-drinks"
+        name="Explore Drinks"
+        onClick={ () => history.push('/explore/drinks') }
       />
     </div>
   );
