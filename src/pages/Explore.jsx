@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Button from '../components/Button';
+import BottomMenu from '../components/BottomMenu';
 
 export default function Explore() {
   const history = useHistory();
@@ -21,6 +22,7 @@ export default function Explore() {
         name="Explore Drinks"
         onClick={ () => history.push('/explore/drinks') }
       />
+      <BottomMenu />
     </div>
   );
 }
