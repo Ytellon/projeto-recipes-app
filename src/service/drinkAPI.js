@@ -33,7 +33,14 @@ export const getDrinkByIngredient = async (ingredientName) => {
 
 export const getDrinkById = async (drinkId) => {
   const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`;
-}
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getAllDrinksInitial = async () => {
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -45,10 +52,6 @@ export const getAllDrinksInitial = async () => {
     console.log(error);
   }
 };
-
-export const getSuggestedDrinks = async () => {
-  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-}
 
 export const getAllDrinksCategories = async () => {
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';

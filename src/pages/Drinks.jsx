@@ -34,7 +34,7 @@ export default function Drinks() {
     };
 
     handleDrinksCategorys();
-  }, [filter]);
+  }, [filter, fetchDrinks, getDrinksByCategory, preview]);
 
   return (
     <div>

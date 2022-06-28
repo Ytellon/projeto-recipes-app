@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getMealById, getSuggestedMeals } from '../service/mealAPI';
-import { getDrinkById, getSuggestedDrinks } from '../service/drinkAPI';
+import { getMealById, getAllMealsInitial } from '../service/mealAPI';
+import { getDrinkById, getAllDrinksInitial } from '../service/drinkAPI';
 import Carousel from '../components/Carousel';
 import StartOrContinueBtns from '../components/StartOrContinueBtns';
 import ShareOrFavoriteBtns from '../components/ShareOrFavoriteBtns';
@@ -27,12 +27,12 @@ export default function Details() {
     const getId = async () => {
       if (isFoodOrDrink === 'foods') {
         const result = await getMealById(id);
-        const suggestionsResult = await getSuggestedDrinks();
+        const suggestionsResult = await getAllDrinksInitial();
         setRecipe(result[0]);
         setSuggestions(suggestionsResult.slice(0, SIX));
       } else {
         const result = await getDrinkById(id);
-        const suggestionsResult = await getSuggestedMeals();
+        const suggestionsResult = await getAllMealsInitial();
         setRecipe(result[0]);
         setSuggestions(suggestionsResult.slice(0, SIX));
       }
