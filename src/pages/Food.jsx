@@ -32,7 +32,7 @@ export default function Food() {
     };
 
     handleMealsCategorys();
-  }, [filter]);
+  }, [filter, fetchMeals, getMealsByCategory, preview]);
 
   return (
     <div>
@@ -65,7 +65,6 @@ export default function Food() {
           dataTestIdCard={ `${index}-recipe-card` }
           dataTestIdImage={ `${index}-card-img` }
           dataTestIdName={ `${index}-card-name` }
-          id={ food.idMeal }
           route="foods"
         />
       ))}
