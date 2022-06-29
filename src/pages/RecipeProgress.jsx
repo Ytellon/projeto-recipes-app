@@ -6,7 +6,7 @@ import { getDrinkById } from '../service/drinkAPI';
 import { getMealById } from '../service/mealAPI';
 import '../styles/FoodProgress.css';
 
-export default function FoodProgress() {
+export default function RecipeProgress() {
   const history = useHistory();
 
   const { location: { pathname } } = history;

@@ -8,7 +8,8 @@ export default function ListIngredients({ foodOrDrink, idRecipe, recipeDetails }
   useEffect(() => {
     const recipe = Object.entries(recipeDetails);
     const ingredients = recipe.filter((array) => array[0].includes('strIngredient'));
-    const ingredientsData = ingredients.filter((array) => array[1] !== '');
+    const ingredientsData = ingredients
+      .filter((array) => array[1] !== '' && array[1] !== null);
 
     const onlyIngredients = ingredientsData.map((array) => array[1]);
     setRecipeIngredients(onlyIngredients);
@@ -28,8 +29,12 @@ export default function ListIngredients({ foodOrDrink, idRecipe, recipeDetails }
 
   return (
     <ul data-testid="ingredient-step">
-      { recipeIngredients.map((ingredient) => (
-        <Ingredient key={ ingredient } ingredient={ ingredient } />
+      { recipeIngredients.map((ingredient, index) => (
+        <Ingredient
+          data-testid={ `${index}-ingredient-step` }
+          key={ ingredient }
+          ingredient={ ingredient }
+        />
       )) }
     </ul>
   );
