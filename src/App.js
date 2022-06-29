@@ -30,8 +30,8 @@ function App() {
       <Route exact path="/explore/foods/nationalities" />
       <Route exact path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-      <Route exact path="/foods/in-progress" component={ RecipeProgress } />
-      {/* <Route exact path="/foods/:id/in-progress" component={ RecipeProgess } /> rota oficial */}
+      {/* <Route exact path="/foods/in-progress" component={ RecipeProgress } /> */}
+      <Route exact path="/foods/:id/in-progress" component={ RecipeProgress } />
     </Switch>
   );
 }

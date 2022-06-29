@@ -77,6 +77,7 @@ export default function Details() {
       <ShareOrFavoriteBtns
         id={ id }
         recipe={ recipe }
+        isFoodOrDrink={ isFoodOrDrink }
       />
 
       <div
