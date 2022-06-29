@@ -1,35 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import ListIngredients from '../components/ListIngredients';
+import ShareOrFavoriteBtns from '../components/ShareOrFavoriteBtns';
+import { getDrinkById } from '../service/drinkAPI';
+import { getMealById } from '../service/mealAPI';
 import '../styles/FoodProgress.css';
 
 export default function FoodProgress() {
-  const [ingredientChecked, setIngredientChecked] = useState(false);
   const history = useHistory();
 
-  const saveIngredients = () => {
-    setIngredientChecked(!ingredientChecked);
+  const { location: { pathname } } = history;
+  const [, foodOrDrink, idRecipe] = pathname.split('/');
 
-    const recipes = {
-      cocktails: {
-        id: [],
-      },
-      meals: {
-        id: [],
-      },
+  // guardar informacoes da receita
+  const [recipeDetails, setRecipeDetails] = useState([{}]);
+  console.log(recipeDetails);
+
+  // didMount
+  useEffect(() => {
+    const controller = new AbortController();
+    const fetchMealsOrDrinks = async () => {
+      if (foodOrDrink === 'foods') {
+        setRecipeDetails(await getMealById(idRecipe));
+      } else {
+        setRecipeDetails(await getDrinkById(idRecipe));
+      }
     };
-
-    const ingredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (ingredients === null) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify([recipes]));
-    } else if (ingredientChecked === true) {
-      // ingrediente marcado, salvar no localStorage
-      ingredients.push(recipes);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(ingredients));
-    }
-  };
-
-  const ingredientsCheckedLocalStorage = JSON
-    .parse(localStorage.getItem('inProgressRecipes'));
+    fetchMealsOrDrinks();
+    return () => controller?.abort();
+  }, [foodOrDrink, idRecipe]);
 
   const doneRecipe = (event) => {
     event.preventDefault();
@@ -84,29 +83,21 @@ export default function FoodProgress() {
     <form>
       {/* <img data-testid="recipe-photo" /> */}
       <h1 data-testid="recipe-title">Title</h1>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
-      <p data-testid="recipe-category">Categoria</p>
-      <ul data-testid="ingredient-step">
+      <ShareOrFavoriteBtns
+        id={ idRecipe }
+        recipe={ recipeDetails }
+        isFoodOrDrink={ foodOrDrink }
+      />
+      {/* <button type="button" data-testid="share-btn">Compartilhar</button>
+      <button type="button" data-testid="favorite-btn">Favoritar</button> */}
 
-        {/* recipes.map(({name, 'cenoura'}) => ) */}
-        <li>
-          <label
-            className={ ingredientChecked === true && 'ingredientChecked' }
-            htmlFor="checkbox"
-          >
-            nome do ingrediente
-            <input
-              type="checkbox"
-              id="checkbox"
-              checked={ ingredientsCheckedLocalStorage
-                .includes('cenoura') ? true : ingredientChecked }
-              onClick={ () => saveIngredients() }
-              required
-            />
-          </label>
-        </li>
-      </ul>
+      {/* recipes.map(({name, 'cenoura'}) => ) */}
+      <p data-testid="recipe-category">Categoria</p>
+      <ListIngredients
+        foodOrDrink={ foodOrDrink }
+        idRecipe={ idRecipe }
+        recipeDetails={ recipeDetails }
+      />
       <p data-testid="instructions">Preparo</p>
       <button
         type="submit"

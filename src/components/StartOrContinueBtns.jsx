@@ -52,6 +52,7 @@ export default function StartOrContinueBtns({ id, isFoodOrDrink }) {
         localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipesInProgress));
       }
     }
+    console.log('passou');
     history.push(`/${isFoodOrDrink}/${id}/in-progress`);
   };
   const continueRecipe = () => {
