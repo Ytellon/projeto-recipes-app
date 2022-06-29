@@ -20,9 +20,13 @@ export default function StartOrContinueBtns({ id, isFoodOrDrink }) {
           .some((doneRecipe) => Number(doneRecipe.id) === Number(id)));
       }
       if (recipesInProgress) {
-        setIsRecipeInProgress(Object.keys(recipesInProgress.meals
-          || recipesInProgress.cocktails)
-          .some((recipe) => recipe === id));
+        const values = Object.values(recipesInProgress);
+        const ids = values.map((keyId) => Object.keys(keyId));
+        const onlyIds = [];
+        ids.forEach((array) => {
+          onlyIds.push(array[0]);
+        });
+        setIsRecipeInProgress(onlyIds.some((recipe) => recipe === id));
       }
     };
     anyRecipe();
@@ -30,6 +34,24 @@ export default function StartOrContinueBtns({ id, isFoodOrDrink }) {
 
   const startRecipe = () => {
     setIsRecipeStarted((prev) => !prev);
+    if (recipesInProgress && isFoodOrDrink === 'foods') {
+      recipesInProgress.meals[id] = [];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+    } if (recipesInProgress && isFoodOrDrink === 'drinks') {
+      recipesInProgress.cocktails[id] = [];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
+    } else {
+      const newRecipesInProgress = {
+        cocktails: {},
+        meals: {},
+      }; if (isFoodOrDrink === 'foods') {
+        newRecipesInProgress.meals[id] = [];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipesInProgress));
+      } else {
+        newRecipesInProgress.cocktails[id] = [];
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipesInProgress));
+      }
+    }
     history.push(`/${isFoodOrDrink}/${id}/in-progress`);
   };
   const continueRecipe = () => {
