@@ -19,7 +19,6 @@ export default function ListIngredients({ foodOrDrink, idRecipe, recipeDetails }
     const getCheckedIngredients = () => {
       const ingredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
       console.log(ingredients);
-      console.log(foodOrDrink, idRecipe);
       // if (foodOrDrink === 'foods') {
       //   ingredients.meals[idRecipe].push();
       // }
@@ -31,9 +30,11 @@ export default function ListIngredients({ foodOrDrink, idRecipe, recipeDetails }
     <ul>
       { recipeIngredients.map((ingredient, index) => (
         <Ingredient
-          index={ index }
           key={ ingredient }
           ingredient={ ingredient }
+          index={ index }
+          foodOrDrink={ foodOrDrink }
+          idRecipe={ idRecipe }
         />
       )) }
     </ul>
