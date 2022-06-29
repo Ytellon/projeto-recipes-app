@@ -6,7 +6,7 @@ export default function ListIngredients({ foodOrDrink, idRecipe, recipeDetails }
   const [recipeIngredients, setRecipeIngredients] = useState([]);
 
   useEffect(() => {
-    const recipe = Object.entries(recipeDetails[0]);
+    const recipe = Object.entries(recipeDetails);
     const ingredients = recipe.filter((array) => array[0].includes('strIngredient'));
     const ingredientsData = ingredients.filter((array) => array[1] !== '');
 

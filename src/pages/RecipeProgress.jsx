@@ -14,16 +14,17 @@ export default function FoodProgress() {
 
   // guardar informacoes da receita
   const [recipeDetails, setRecipeDetails] = useState([{}]);
-  console.log(recipeDetails);
 
   // didMount
   useEffect(() => {
     const controller = new AbortController();
     const fetchMealsOrDrinks = async () => {
       if (foodOrDrink === 'foods') {
-        setRecipeDetails(await getMealById(idRecipe));
+        const recipe = await getMealById(idRecipe);
+        setRecipeDetails(recipe[0]);
       } else {
-        setRecipeDetails(await getDrinkById(idRecipe));
+        const recipe = await getDrinkById(idRecipe);
+        setRecipeDetails(recipe[0]);
       }
     };
     fetchMealsOrDrinks();
@@ -81,24 +82,33 @@ export default function FoodProgress() {
 
   return (
     <form>
-      {/* <img data-testid="recipe-photo" /> */}
-      <h1 data-testid="recipe-title">Title</h1>
+      <img
+        data-testid="recipe-photo"
+        src={ recipeDetails.strDrinkThumb || recipeDetails.strMealThumb }
+        alt={ recipeDetails.strDrink || recipeDetails.strMeal }
+      />
+      <h1
+        data-testid="recipe-title"
+      >
+        { recipeDetails.strMeal || recipeDetails.strDrink }
+      </h1>
       <ShareOrFavoriteBtns
         id={ idRecipe }
         recipe={ recipeDetails }
         isFoodOrDrink={ foodOrDrink }
       />
-      {/* <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button> */}
+      <p
+        data-testid="recipe-category"
+      >
+        { recipeDetails.strCategory || recipeDetails.strAlcoholic }
 
-      {/* recipes.map(({name, 'cenoura'}) => ) */}
-      <p data-testid="recipe-category">Categoria</p>
+      </p>
       <ListIngredients
         foodOrDrink={ foodOrDrink }
         idRecipe={ idRecipe }
         recipeDetails={ recipeDetails }
       />
-      <p data-testid="instructions">Preparo</p>
+      <p data-testid="instructions">{ recipeDetails.strInstructions }</p>
       <button
         type="submit"
         data-testid="finish-recipe-btn"
