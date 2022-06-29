@@ -28,10 +28,10 @@ export default function ListIngredients({ foodOrDrink, idRecipe, recipeDetails }
   }, []);
 
   return (
-    <ul data-testid="ingredient-step">
+    <ul>
       { recipeIngredients.map((ingredient, index) => (
         <Ingredient
-          data-testid={ `${index}-ingredient-step` }
+          index={ index }
           key={ ingredient }
           ingredient={ ingredient }
         />

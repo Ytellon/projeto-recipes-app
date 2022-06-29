@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Ingredient({ ingredient }) {
+export default function Ingredient({ ingredient, index }) {
   const [ingredientsSaved] = useState([]);
   const [ingredientChecked, setIngredientChecked] = useState(false);
 
@@ -17,7 +17,7 @@ export default function Ingredient({ ingredient }) {
   };
 
   return (
-    <li>
+    <li data-testid={ `${index}-ingredient-step` }>
       <label
         className={ ingredientChecked ? 'ingredientChecked' : '' }
         htmlFor="checkbox"
@@ -36,5 +36,6 @@ export default function Ingredient({ ingredient }) {
 }
 
 Ingredient.propTypes = {
-  ingredient: PropTypes.string.isRequired,
-};
+  ingredient: PropTypes.string,
+  index: PropTypes.number,
+}.isRequired;
