@@ -6,39 +6,42 @@ import { getDrinkById } from '../service/drinkAPI';
 import { getMealById } from '../service/mealAPI';
 import '../styles/FoodProgress.css';
 
-const doneRecipe = (event) => {
+const getTags = (tagsString) => {
+  const tagsFormatted = tagsString.split(',');
+  return tagsFormatted;
+};
+
+const doneRecipe = (event, recipeDetails, foodOrDrink) => {
   event.preventDefault();
   const date = new Date();
   const dateFormated = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 
-  const vaiReceber = 'vai receber';
-  const drinkOrMeal = 'drink';
-
   let recipeToSave = {};
 
-  if (drinkOrMeal === 'drink') {
+  if (foodOrDrink === 'drinks') {
     recipeToSave = {
-      id: vaiReceber,
-      type: vaiReceber,
+      id: recipeDetails.idDrink,
+      type: 'drink',
       nationality: '',
       category: '',
-      alcoholicOrNot: vaiReceber,
-      name: vaiReceber,
-      image: vaiReceber,
+      alcoholicOrNot: recipeDetails.strAlcoholic,
+      name: recipeDetails.strDrink,
+      image: recipeDetails.strDrinkThumb,
       doneDate: dateFormated,
-      tags: vaiReceber,
+      tags: [],
     };
-  } else if (drinkOrMeal === 'meal') {
+  } else if (foodOrDrink === 'foods') {
+    const tags = getTags(recipeDetails.strTags);
     recipeToSave = {
-      id: vaiReceber,
-      type: vaiReceber,
-      nationality: vaiReceber,
-      category: vaiReceber,
+      id: recipeDetails.idMeal,
+      type: 'food',
+      nationality: recipeDetails.strArea,
+      category: recipeDetails.strCategory,
       alcoholicOrNot: '',
-      name: vaiReceber,
-      image: vaiReceber,
+      name: recipeDetails.strMeal,
+      image: recipeDetails.strMealThumb,
       doneDate: dateFormated,
-      tags: vaiReceber,
+      tags,
     };
   }
 
@@ -139,7 +142,7 @@ export default function RecipeProgress() {
         type="submit"
         data-testid="finish-recipe-btn"
         onClick={ (event) => {
-          doneRecipe(event);
+          doneRecipe(event, recipeDetails, foodOrDrink);
           history.push('/done-recipes');
         } }
         disabled={ isDoneBtnDiasbled }
