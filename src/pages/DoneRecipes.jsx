@@ -105,6 +105,7 @@ export default function DoneRecipes() {
                   src={ image }
                   alt="Receita"
                   data-testid={ `${index}-horizontal-image` }
+                  style={ { width: '100%' } }
                 />
               </button>
               <p
