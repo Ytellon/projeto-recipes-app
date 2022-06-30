@@ -4,11 +4,13 @@ import CardsRecipes from '../components/CardsRecipes';
 import Header from '../components/Header';
 import FoodContext from '../FoodContext/foodContext';
 import Button from '../components/Button';
+import { getAllMealsInitial, getMealByCategory } from '../service/mealAPI';
 
 export default function Food() {
   const [filter, setFilter] = useState('All');
+
   const [preview, setPreview] = useState('');
-  const { meal, buttonMeal, getMealsByCategory } = useContext(FoodContext);
+  const { buttonMeal, meal, setMeal } = useContext(FoodContext);
   const NUMBER_OF_CARDS = 12;
   const NUMBER_CATEGORIES = 5;
   const handleFilter = (filterName) => {
@@ -22,17 +24,25 @@ export default function Food() {
   };
 
   useEffect(() => {
+    const fetchMeals = async () => {
+      const meals = await getAllMealsInitial();
+      setMeal(meals);
+    };
+    const getMealsByCategory = async (category) => {
+      const meals = await getMealByCategory(category);
+      setMeal(meals);
+    };
     const handleMealsCategorys = () => {
       if (filter !== 'All') {
         getMealsByCategory(filter);
       }
       if (filter === 'All' || filter === preview) {
-        // fetchMeals();
+        fetchMeals();
       }
     };
 
     handleMealsCategorys();
-  }, [filter, getMealsByCategory, preview]);
+  }, [filter, setMeal, preview]);
 
   return (
     <div>
@@ -43,7 +53,7 @@ export default function Food() {
       <Button
         dataTestIdButton="All-category-filter"
         name="All"
-        onClick={ () => console.log('') }
+        onClick={ ({ target }) => handleFilter(target.name) }
       />
       {buttonMeal
         && buttonMeal

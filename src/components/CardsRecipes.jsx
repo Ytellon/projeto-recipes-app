@@ -15,7 +15,7 @@ function CardsRecipes({
   const history = useHistory();
   const handleRedirect = ({ target }) => {
     setCurrentRecipeId(target.id);
-    if (history.location.pathname === '/foods') {
+    if (history.location.pathname.includes('foods')) {
       history.push(`/foods/${target.id}`);
     } else {
       history.push(`/drinks/${target.id}`);
@@ -23,7 +23,7 @@ function CardsRecipes({
   };
 
   return (
-    <div data-testid={ dataTestIdCard }>
+    <div>
       <p data-testid={ dataTestIdName }>{ name }</p>
       <img
         data-testid={ dataTestIdImage }
@@ -31,6 +31,7 @@ function CardsRecipes({
         alt={ name }
       />
       <button
+        data-testid={ dataTestIdCard }
         type="button"
         id={ id }
         onClick={ (e) => handleRedirect(e) }
