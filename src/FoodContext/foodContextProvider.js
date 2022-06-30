@@ -18,7 +18,15 @@ const FoodContextProvider = ({ children }) => {
   const [currentRecipeId, setCurrentRecipeId] = useState('');
   const [drinkOrMeal, setDrinkOrMeal] = useState('');
   const shareRecipe = () => {
-    navigator.clipboard.writeText(window.location.href);
+    const link = window.location.href;
+    const linkArray = link.split('/');
+    if (linkArray.includes('in-progress')) {
+      const filterdArray = linkArray.filter((word) => word !== 'in-progress');
+      const newArray = filterdArray.join('/');
+      navigator.clipboard.writeText(newArray);
+    } else {
+      navigator.clipboard.writeText(link);
+    }
   };
 
   const [buttonDrink, setButtonDrink] = useState([]);

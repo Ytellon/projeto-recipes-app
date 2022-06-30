@@ -15,17 +15,6 @@ export default function ListIngredients({ foodOrDrink, idRecipe, recipeDetails }
     setRecipeIngredients(onlyIngredients);
   }, [recipeDetails]);
 
-  useEffect(() => {
-    const getCheckedIngredients = () => {
-      const ingredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      console.log(ingredients);
-      // if (foodOrDrink === 'foods') {
-      //   ingredients.meals[idRecipe].push();
-      // }
-    };
-    getCheckedIngredients();
-  }, []);
-
   return (
     <ul>
       { recipeIngredients.map((ingredient, index) => (

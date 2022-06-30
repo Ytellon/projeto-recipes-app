@@ -2,66 +2,48 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 export default function Ingredient({ ingredient, index, foodOrDrink, idRecipe }) {
-  const [ingredientsSaved, setIngredientsSaved] = useState([]);
-  const [ingredientChecked, setIngredientChecked] = useState(false);
+  const [isIngredientChecked, setIsIngredientChecked] = useState(true);
 
-  const changeCheckedState = () => {
-    setIngredientChecked(!ingredientChecked);
+  const key = foodOrDrink === 'foods' ? 'meals' : 'cocktails';
+
+  const handleCheck = () => {
+    setIsIngredientChecked(!isIngredientChecked);
+    const ingredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (ingredients && ingredients[key][idRecipe].includes(ingredient)) {
+      const newIngredients = ingredients[key][idRecipe]
+        .filter((recipeIngredients) => recipeIngredients !== ingredient);
+      ingredients[key][idRecipe] = newIngredients;
+    } else {
+      ingredients[key][idRecipe].push(ingredient);
+    } localStorage.setItem('inProgressRecipes', JSON.stringify(ingredients));
   };
 
   useEffect(() => {
-    const saveIngredients = () => {
-      const ingredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (ingredientChecked === true) {
-        if (foodOrDrink === 'foods') {
-          ingredients.meals[idRecipe].push(ingredient);
-        } else {
-          ingredients.cocktails[idRecipe].push(ingredient);
-        }
-        localStorage.setItem('inProgressRecipes', JSON.stringify(ingredients));
-      } else {
-        // remover
-        // if (foodOrDrink === 'drinks') {
+    const ingredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (ingredients === undefined || ingredients === null) {
+      const inProgressRecipes = {
+        cocktails: {},
+        meals: {},
+      };
+      inProgressRecipes[key][idRecipe] = [];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    } if (ingredients && !ingredients[key][idRecipe].includes(ingredient)) {
+      setIsIngredientChecked(false);
+    }
+  }, [key, ingredient, idRecipe]);
 
-        // } else {
-
-        // }
-      }
-    };
-    saveIngredients();
-  }, [ingredientChecked, idRecipe, foodOrDrink, ingredient]);
-
-  useEffect(() => {
-    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const getIngredients = () => {
-      const recipes = Object.values(recipesInProgress);
-      const ingredients = recipes.map((recipe) => Object.values(recipe));
-      const ingredientsName = [];
-
-      ingredients.forEach((ingredientValue) => {
-        ingredientValue.forEach((singleIngredient) => {
-          ingredientsName.push(singleIngredient);
-        });
-      });
-      setIngredientsSaved(ingredientsName);
-    };
-    getIngredients();
-  }, []);
-
-  console.log(ingredientsSaved);
-  console.log(ingredientsSaved.includes(ingredient.toString()));
   return (
     <li data-testid={ `${index}-ingredient-step` }>
       <label
-        className={ ingredientChecked ? 'ingredientChecked' : '' }
+        className={ isIngredientChecked ? 'ingredientChecked' : '' }
         htmlFor={ ingredient }
       >
         { ingredient }
         <input
           type="checkbox"
           id={ ingredient }
-          checked={ ingredientsSaved.includes(ingredient) }
-          onChange={ () => changeCheckedState() }
+          checked={ isIngredientChecked }
+          onChange={ () => handleCheck() }
           required
         />
       </label>
