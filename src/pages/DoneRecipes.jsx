@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import ShareIcon from '../images/shareIcon.svg';
@@ -6,10 +6,17 @@ import ShareIcon from '../images/shareIcon.svg';
 export default function DoneRecipes() {
   const history = useHistory();
 
-  const [doneRecipes] = useState(JSON
+  const [doneRecipes, setDoneRecipes] = useState(JSON
     .parse(localStorage.getItem('doneRecipes')));
 
-  const [filteredRecipes, setFilteredRecipes] = useState(doneRecipes);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+
+  useEffect(() => {
+    const recipesDone = localStorage.getItem('doneRecipes');
+    if (recipesDone) {
+      setDoneRecipes(recipesDone);
+    }
+  }, []);
 
   const filterRecipes = (type) => {
     if (type === 'meal') {

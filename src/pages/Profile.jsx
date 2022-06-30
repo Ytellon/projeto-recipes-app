@@ -9,7 +9,9 @@ export default function Profile() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    setEmail(user.email);
+    if (user) {
+      setEmail(user.email);
+    }
   }, []);
 
   return (
