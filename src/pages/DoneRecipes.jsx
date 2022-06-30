@@ -6,15 +6,15 @@ import ShareIcon from '../images/shareIcon.svg';
 export default function DoneRecipes() {
   const history = useHistory();
 
-  const [doneRecipes, setDoneRecipes] = useState(JSON
-    .parse(localStorage.getItem('doneRecipes')));
+  const [doneRecipes, setDoneRecipes] = useState([]);
 
   const [filteredRecipes, setFilteredRecipes] = useState([]);
 
   useEffect(() => {
-    const recipesDone = localStorage.getItem('doneRecipes');
+    const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
     if (recipesDone) {
       setDoneRecipes(recipesDone);
+      setFilteredRecipes(recipesDone);
     }
   }, []);
 
@@ -66,7 +66,7 @@ export default function DoneRecipes() {
       { filteredRecipes
         .map((recipe, index) => {
           const { id, nationality, alcoholicOrNot,
-            category, name, doneDate, image } = recipe;
+            category, name, doneDate, image, tags } = recipe;
 
           return (
             <div key={ index }>
@@ -74,10 +74,14 @@ export default function DoneRecipes() {
                 type="button"
                 onClick={ () => history.push(`/foods/${id}/details`) }
               >
-                <img src={ image } alt="Receita" data-testid="index-horizontal-image" />
+                <img
+                  src={ image }
+                  alt="Receita"
+                  data-testid={ `${index}-horizontal-image` }
+                />
               </button>
               <p
-                data-testid="${index-horizontal-top-text"
+                data-testid={ `${index}-horizontal-top-text` }
               >
                 { nationality === '' ? alcoholicOrNot : `${nationality} - ${category}` }
               </p>
@@ -86,24 +90,26 @@ export default function DoneRecipes() {
                 onClick={ () => history.push(`/foods/${id}/details`) }
               >
                 <p
-                  data-testid="${index-horizontal-name"
+                  data-testid={ `${index}-horizontal-name` }
                 >
                   { name }
                 </p>
               </button>
-              <p data-testid="${index-horizontal-done-date">{ doneDate }</p>
-              <p
-                data-testid="${index-${tagName-horizontal-tag"
-              >
-                { nationality !== '' ? 'renderiza tags' : 'não renderiza' }
-
-              </p>
-
+              <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
+              { nationality !== '' && (
+                tags.map((tag) => (
+                  <p key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
+                    { tag }
+                  </p>))
+              ) }
               <button
                 type="button"
-                data-testid="${index-horizontal-share-btn"
               >
-                <img src={ ShareIcon } alt="Ícone de compartilhar" />
+                <img
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  src={ ShareIcon }
+                  alt="Ícone de compartilhar"
+                />
               </button>
             </div>
           );
