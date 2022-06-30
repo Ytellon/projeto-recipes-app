@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Button from '../components/Button';
+import BottomMenu from '../components/BottomMenu';
 
 export default function Profile() {
   const [email, setEmail] = useState('');
@@ -38,6 +39,7 @@ export default function Profile() {
         name="Logout"
         onClick={ () => { localStorage.clear(); history.push('/'); } }
       />
+      <BottomMenu />
     </div>
   );
 }
