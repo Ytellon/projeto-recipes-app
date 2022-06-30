@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Ingredient from './Ingredient';
 
-export default function ListIngredients({ foodOrDrink, idRecipe, recipeDetails }) {
+export default function ListIngredients({
+  foodOrDrink,
+  idRecipe,
+  recipeDetails,
+  setInProgress,
+}) {
   const [recipeIngredients, setRecipeIngredients] = useState([]);
 
   useEffect(() => {
@@ -24,6 +29,7 @@ export default function ListIngredients({ foodOrDrink, idRecipe, recipeDetails }
           index={ index }
           foodOrDrink={ foodOrDrink }
           idRecipe={ idRecipe }
+          setInProgress={ setInProgress }
         />
       )) }
     </ul>
@@ -34,4 +40,5 @@ ListIngredients.propTypes = {
   foodOrDrink: PropTypes.string,
   idRecipe: PropTypes.string,
   recipeDetails: PropTypes.object,
+  setInProgress: PropTypes.func,
 }.isRequired;

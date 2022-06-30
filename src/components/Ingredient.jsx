@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Ingredient({ ingredient, index, foodOrDrink, idRecipe }) {
+export default function Ingredient({
+  ingredient,
+  index,
+  foodOrDrink,
+  idRecipe,
+  setInProgress,
+}) {
   const [isIngredientChecked, setIsIngredientChecked] = useState(true);
 
   const key = foodOrDrink === 'foods' ? 'meals' : 'cocktails';
@@ -16,6 +22,7 @@ export default function Ingredient({ ingredient, index, foodOrDrink, idRecipe })
     } else {
       ingredients[key][idRecipe].push(ingredient);
     } localStorage.setItem('inProgressRecipes', JSON.stringify(ingredients));
+    setInProgress(ingredients[key][idRecipe]);
   };
 
   useEffect(() => {
