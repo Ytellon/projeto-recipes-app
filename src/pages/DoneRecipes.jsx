@@ -7,8 +7,35 @@ export default function DoneRecipes() {
   const history = useHistory();
 
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const [link, setLink] = useState('');
 
   const [filteredRecipes, setFilteredRecipes] = useState([]);
+
+  const shareRecipe = (id, nationality) => {
+    const url = window.location.href;
+    const urlSplit = url.split('/');
+    const indexDoneRecipes = urlSplit.indexOf('done-recipes');
+
+    if (nationality !== '') {
+      urlSplit[indexDoneRecipes] = `foods/${id}`;
+
+      const newUrl = urlSplit.join('/');
+      navigator.clipboard.writeText(newUrl);
+    } else {
+      urlSplit[indexDoneRecipes] = `drinks/${id}`;
+
+      const newUrl = urlSplit.join('/');
+      navigator.clipboard.writeText(newUrl);
+    }
+  };
+
+  const redirectRecipeDetails = (nationality, id) => {
+    if (nationality !== '') {
+      history.push(`/foods/${id}`);
+    } else {
+      history.push(`/drinks/${id}`);
+    }
+  };
 
   useEffect(() => {
     const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -72,7 +99,7 @@ export default function DoneRecipes() {
             <div key={ index }>
               <button
                 type="button"
-                onClick={ () => history.push(`/foods/${id}/details`) }
+                onClick={ () => redirectRecipeDetails(nationality, id) }
               >
                 <img
                   src={ image }
@@ -87,7 +114,7 @@ export default function DoneRecipes() {
               </p>
               <button
                 type="button"
-                onClick={ () => history.push(`/foods/${id}/details`) }
+                onClick={ () => redirectRecipeDetails(nationality, id) }
               >
                 <p
                   data-testid={ `${index}-horizontal-name` }
@@ -104,12 +131,17 @@ export default function DoneRecipes() {
               ) }
               <button
                 type="button"
+                onClick={ () => {
+                  setLink('Link copied!');
+                  shareRecipe(id, nationality);
+                } }
               >
                 <img
                   data-testid={ `${index}-horizontal-share-btn` }
                   src={ ShareIcon }
                   alt="Ícone de compartilhar"
                 />
+                { link }
               </button>
             </div>
           );
