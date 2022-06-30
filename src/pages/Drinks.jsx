@@ -9,7 +9,7 @@ export default function Drinks() {
   const [filter, setFilter] = useState('All');
   const [preview, setPreview] = useState('');
   const {
-    drink, buttonDrink, getDrinksByCategory, fetchDrinks } = useContext(FoodContext);
+    drink, buttonDrink, getDrinksByCategory } = useContext(FoodContext);
   const NUMBER_OF_CARDS = 12;
   const NUMBER_CATEGORIES = 5;
 
@@ -29,12 +29,12 @@ export default function Drinks() {
         getDrinksByCategory(filter);
       }
       if (filter === 'All' || filter === preview) {
-        fetchDrinks();
+        // fetchDrinks();
       }
     };
 
     handleDrinksCategorys();
-  }, [filter, fetchDrinks, getDrinksByCategory, preview]);
+  }, [filter, getDrinksByCategory, preview]);
 
   return (
     <div>
@@ -42,7 +42,7 @@ export default function Drinks() {
       <Button
         dataTestIdButton="All-category-filter"
         name="All"
-        onClick={ fetchDrinks }
+        onClick={ () => console.log('') }
       />
       { drink && drink.slice(0, NUMBER_OF_CARDS).map((drinks, index) => (
         <CardsRecipes

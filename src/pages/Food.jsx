@@ -8,7 +8,7 @@ import Button from '../components/Button';
 export default function Food() {
   const [filter, setFilter] = useState('All');
   const [preview, setPreview] = useState('');
-  const { meal, buttonMeal, getMealsByCategory, fetchMeals } = useContext(FoodContext);
+  const { meal, buttonMeal, getMealsByCategory } = useContext(FoodContext);
   const NUMBER_OF_CARDS = 12;
   const NUMBER_CATEGORIES = 5;
   const handleFilter = (filterName) => {
@@ -27,12 +27,12 @@ export default function Food() {
         getMealsByCategory(filter);
       }
       if (filter === 'All' || filter === preview) {
-        fetchMeals();
+        // fetchMeals();
       }
     };
 
     handleMealsCategorys();
-  }, [filter, fetchMeals, getMealsByCategory, preview]);
+  }, [filter, getMealsByCategory, preview]);
 
   return (
     <div>
@@ -43,7 +43,7 @@ export default function Food() {
       <Button
         dataTestIdButton="All-category-filter"
         name="All"
-        onClick={ fetchMeals }
+        onClick={ () => console.log('') }
       />
       {buttonMeal
         && buttonMeal
