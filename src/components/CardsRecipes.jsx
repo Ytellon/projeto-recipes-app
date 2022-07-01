@@ -15,6 +15,7 @@ function CardsRecipes({
   const history = useHistory();
   const handleRedirect = ({ target }) => {
     setCurrentRecipeId(target.id);
+    localStorage.setItem('filteredIngredient', '');
     if (history.location.pathname.includes('foods')) {
       history.push(`/foods/${target.id}`);
     } else {
