@@ -4,13 +4,17 @@ import CardsRecipes from '../components/CardsRecipes';
 import Header from '../components/Header';
 import FoodContext from '../FoodContext/foodContext';
 import Button from '../components/Button';
+import { getAllMealsInitial,
+  getMealByCategory, getMealByIngredient } from '../service/mealAPI';
 
 export default function Food() {
   const [filter, setFilter] = useState('All');
+
   const [preview, setPreview] = useState('');
-  const { meal, buttonMeal, getMealsByCategory, fetchMeals } = useContext(FoodContext);
+  const { buttonMeal, meal, setMeal } = useContext(FoodContext);
   const NUMBER_OF_CARDS = 12;
   const NUMBER_CATEGORIES = 5;
+
   const handleFilter = (filterName) => {
     if (filterName !== filter) {
       setFilter(filterName);
@@ -22,17 +26,43 @@ export default function Food() {
   };
 
   useEffect(() => {
-    const handleMealsCategorys = () => {
-      if (filter !== 'All') {
-        getMealsByCategory(filter);
-      }
-      if (filter === 'All' || filter === preview) {
-        fetchMeals();
+    const ingredient = localStorage.getItem('filteredIngredient');
+
+    const handleIngredient = () => {
+      if (ingredient === null || ingredient === '') {
+        const fetchMeals = async () => {
+          const meals = await getAllMealsInitial();
+          setMeal(meals);
+        };
+        const getMealsByCategory = async (category) => {
+          const meals = await getMealByCategory(category);
+          setMeal(meals);
+        };
+        const handleMealsCategorys = () => {
+          if (filter !== 'All') {
+            getMealsByCategory(filter);
+          }
+          if (filter === 'All' || filter === preview) {
+            fetchMeals();
+          }
+        };
+        handleMealsCategorys();
       }
     };
+    handleIngredient();
+  }, [filter, setMeal, preview]);
 
-    handleMealsCategorys();
-  }, [filter, fetchMeals, getMealsByCategory, preview]);
+  useEffect(() => {
+    const getIngredients = async () => {
+      const ingredient = localStorage.getItem('filteredIngredient');
+      if (ingredient !== null) {
+        // comidas filtradas por ingrediente
+        const mealsFilterByIngredient = await getMealByIngredient(ingredient);
+        setMeal(mealsFilterByIngredient);
+      }
+    };
+    getIngredients();
+  }, [setMeal]);
 
   return (
     <div>
@@ -43,7 +73,7 @@ export default function Food() {
       <Button
         dataTestIdButton="All-category-filter"
         name="All"
-        onClick={ fetchMeals }
+        onClick={ ({ target }) => handleFilter(target.name) }
       />
       {buttonMeal
         && buttonMeal
@@ -68,6 +98,7 @@ export default function Food() {
           route="foods"
         />
       ))}
+
       <BottomMenu />
     </div>
   );

@@ -2,23 +2,27 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FoodContext from './foodContext';
 import {
-  getAllDrinksInitial,
   getAllDrinksCategories,
-  getDrinkByCategory,
 } from '../service/drinkAPI';
 import {
-  getAllMealsInitial,
   getAllFoodsCategories,
-  getMealByCategory,
 } from '../service/mealAPI';
 
 const FoodContextProvider = ({ children }) => {
-  const [meal, setMeal] = useState([]);
-  const [drink, setDrink] = useState([]);
   const [currentRecipeId, setCurrentRecipeId] = useState('');
   const [drinkOrMeal, setDrinkOrMeal] = useState('');
+  const [meal, setMeal] = useState([]);
+  const [drink, setDrink] = useState([]);
   const shareRecipe = () => {
-    navigator.clipboard.writeText(window.location.href);
+    const link = window.location.href;
+    const linkArray = link.split('/');
+    if (linkArray.includes('in-progress')) {
+      const filterdArray = linkArray.filter((word) => word !== 'in-progress');
+      const newArray = filterdArray.join('/');
+      navigator.clipboard.writeText(newArray);
+    } else {
+      navigator.clipboard.writeText(link);
+    }
   };
 
   const [buttonDrink, setButtonDrink] = useState([]);
@@ -34,38 +38,12 @@ const FoodContextProvider = ({ children }) => {
     setButtonMeal(categories);
   };
 
-  const fetchDrinks = async () => {
-    const drinks = await getAllDrinksInitial();
-    setDrink(drinks);
-  };
-
-  const fetchMeals = async () => {
-    const meals = await getAllMealsInitial();
-    setMeal(meals);
-  };
-
-  const getMealsByCategory = async (category) => {
-    const meals = await getMealByCategory(category);
-    setMeal(meals);
-  };
-
-  const getDrinksByCategory = async (category) => {
-    const drinks = await getDrinkByCategory(category);
-    setDrink(drinks);
-  };
-
   useEffect(() => {
-    fetchDrinks();
-    fetchMeals();
     getCategoriesDrinks();
     getCategoriesMeals();
   }, []);
 
   const contextValue = {
-    meal,
-    setMeal,
-    drink,
-    setDrink,
     currentRecipeId,
     setCurrentRecipeId,
     drinkOrMeal,
@@ -75,10 +53,10 @@ const FoodContextProvider = ({ children }) => {
     buttonMeal,
     setButtonDrink,
     setButtonMeal,
-    getMealsByCategory,
-    getDrinksByCategory,
-    fetchMeals,
-    fetchDrinks,
+    drink,
+    setDrink,
+    meal,
+    setMeal,
   };
 
   return (
