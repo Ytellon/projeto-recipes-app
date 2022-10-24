@@ -28,13 +28,9 @@ A base de dados serão 2 APIs distintas, uma para comidas e outra para bebidas.
 * REACT
 * REACT Hooks
 * Context API
-* CSS Modules
 
 ## ⚙️ Como Executar
 Clone o repositório em uma pasta de preferência
-
-```
-git@github.com:leonanfecosta/trybe-eats.git
 ```
 
 Entre na pasta que você acabou de clonar, e instale as dependencias
